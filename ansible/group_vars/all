@@ -1,0 +1,5 @@
+go_version_at_least: "1.11"
+go_default_gopath: "$HOME/go"
+go_default_gobin: "$HOME/bin"
+
+instance_user: "vagrant"

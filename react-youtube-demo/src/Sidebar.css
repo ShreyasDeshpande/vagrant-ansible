@@ -1,0 +1,14 @@
+.sidebar {
+  /* flex goes from 0 to 1 i.e 20%*/
+  flex: 0.2;
+}
+
+/* anything inside a sidebar which is a :horizontal row */
+
+.sidebar > hr {
+  height: 1px;
+  border: 0;
+  background-color: lightgrey;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

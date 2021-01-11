@@ -1,0 +1,19 @@
+.recommandedVideos {
+  border: 1px solid black;
+  /* check below weight along with other so that it sums up to 1 */
+  flex: 0.8;
+  background-color: #f9f9f9;
+  padding: 40px 20px;
+  padding-bottom: 0;
+}
+
+.recommandedVideos > h2 {
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
+.recommandeVideos_video {
+  display: flex;
+  /* it wraps as long as it has place to show horizontally */
+  flex-wrap: wrap;
+}

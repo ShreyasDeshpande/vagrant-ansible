@@ -1,0 +1,105 @@
+---
+
+- hosts: appservers
+  become: yes
+  tasks:
+  #Golang realted setup
+    - name: Install go
+      yum: name=golang state=latest
+
+    - name: Get go version
+      command: go version
+      register: go_version_output
+
+# use /etc/profile.d instead of pam_environment
+    - name: Set GOPATH and GOBIN variables
+      copy:
+        content: |
+          GOPATH="{{go_default_gopath}}"
+          GOBIN="{{go_default_gobin}}"
+          export GOPATH GOBIN
+        dest: /etc/profile.d/go.sh
+ # Try looping
+    - name: Install Apache2, Nginx, Nmap, ....
+      yum: name= {{ item }} update_cache=no
+      with_items:
+        - nginx
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - nano
+        - '@Development tools'
+
+    # - name: Docker | Install dependencies
+    #   shell: yum install -y yum-utils device-mapper-persistent-data lvm2
+    #   become: yes
+
+    # - name: Docker | Add repository
+    #   shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    #   become: yes
+
+    # - name: Docker | Install docker-ce
+    #   shell: yum install -y docker-ce
+    #   become: yes
+
+    # - name: Docker | Add user to group
+    #   shell: usermod -aG docker {{ instance_user }}
+    #   become: yes
+
+    # - name: Docker | Lets reset the ssh connection to allow the new group
+    #   meta: reset_connection
+
+    # - name: Docker | Enable on system boot
+    #   shell: systemctl enable docker.service
+    #   become: yes
+
+    # - name: Docker | Start
+    #   shell: systemctl start docker.service
+    #   become: yes
+
+    # - name: Docker | Install python module for docker
+    #   shell: pip install docker
+    #   become: yes
+
+    # - name: Docker | Get info on docker host
+    #   shell: docker system info
+    #   register: docker_info
+
+    # - debug:
+    #     var: docker_info
+
+    # - name: Install Java
+    #   shell: yum install -y java-11-openjdk-devel
+    #   become: yes
+
+    # - name: Java | Verify version
+    #   shell: java --version
+    #   register: java_info
+
+    # - debug:
+    #     var: java_info
+
+    - name: Enable software collections
+      shell: yum --setopt=tsflags=nodocs -y install centos-release-scl-rh
+    - name: Install nodejs 12.x
+      shell: yum --enablerepo=centos-sclo-rh-testing -y install rh-nodejs12
+    - name: link npm to /usr/local/bin/
+      file:
+        src: /opt/rh/rh-nodejs12/root/bin/npm
+        dest: /usr/local/bin/npm
+        state: link
+    - name: link node to /usr/local/bin/
+      file:
+        src: /opt/rh/rh-nodejs12/root/bin/node
+        dest: /usr/local/bin/node
+        state: link
+    - name: link nodejs to /usr/local/bin/
+      file:
+        src: /opt/rh/rh-nodejs12/root/bin/node
+        dest: /usr/local/bin/nodejs
+        state: link
+    - name: link npx to /usr/local/bin/
+      file:
+        src: /opt/rh/rh-nodejs12/root/bin/npx
+        dest: /usr/local/bin/npx
+        state: link

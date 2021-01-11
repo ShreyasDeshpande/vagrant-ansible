@@ -1,0 +1,49 @@
+.header {
+  display: flex;
+  align-items: center;
+  /* to give a space between every child elements */
+  justify-content: space-between;
+  padding: 20px;
+  /* when position is sticky stick from top 0 */
+  position: sticky;
+  top: 0;
+  /* to make look it on top of transperent background set z index to maximum */
+  z-index: 100;
+  background-color: white;
+}
+
+.header_logo {
+  height: 25px;
+  /* anywhere there is image use below to fit properly */
+  object-fit: contain;
+  margin-left: 20px;
+}
+
+.header__input {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  border: 1px solid black;
+}
+
+.header__icons {
+  /* margin from right side  */
+  margin-right: 8px;
+}
+
+.header__input > input {
+  flex: 1;
+  border: none;
+}
+
+.header__inputButton {
+  width: 50px !important;
+  background-color: #fafafa;
+  border-left: 1px solid lightgrey;
+  color: grey;
+}
+
+.header__icons {
+  display: flex;
+  align-items: center;
+}
